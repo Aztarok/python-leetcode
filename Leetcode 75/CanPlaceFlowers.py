@@ -3,19 +3,23 @@ from typing import List
 
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        for i in range(len(flowerbed)):
-            check = 0
-            current = flowerbed[i]
-            if current == 0:
-                check = check + 1
-        if check % 2 == 0:
+        if n == 0:
             return True
-        else:
-            return False
+        for i in range(len(flowerbed)):
+            if (
+                flowerbed[i] == 0
+                and (i == 0 or flowerbed[i - 1] == 0)
+                and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0)
+            ):
+                flowerbed[i] = 1
+                n -= 1
+                if n == 0:
+                    return True
+        return False
 
 
 def main() -> None:
-    s = [1, 0, 0, 0, 1]
+    s = [1, 0, 0, 0, 0, 1]
     t = 1
     solution = Solution()
     result = solution.canPlaceFlowers(s, t)
