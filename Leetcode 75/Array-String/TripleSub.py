@@ -7,7 +7,6 @@ class Solution:
             return False
 
         first_min = second_min = float("inf")
-        print(second_min)
 
         for num in nums:
             if num <= first_min:
