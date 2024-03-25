@@ -3,8 +3,7 @@ import re
 
 class Solution:
     def reverseWords(self, s: str) -> str:
-        words = re.split(r"\s+", s.strip())
-        words.reverse()
+        words = re.split(r"\s+", s.strip())[::-1]
         return " ".join(words)
 
 
