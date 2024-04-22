@@ -14,7 +14,6 @@ class Solution:
 def main() -> None:
     gain = [-5, 1, 5, 0, -7]
     solution = Solution()
-
     result = solution.largestAltitude(gain)
     print(result)
 
