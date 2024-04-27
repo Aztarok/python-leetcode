@@ -1,21 +1,25 @@
-from typing import List
+from typing import Counter, List
 
 
 class Solution:
-    def uniqueOccurrences(self, arr: List[int]) -> bool:
-        list_set = {}
-        for i in arr:
-            if i in list_set:
-                list_set[i] += 1
-            else:
-                list_set[i] = 1
-        return len(list_set) == len(set(list_set.values()))
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        result = {}
+        count = 0
+        for row in grid:
+            result[tuple(row)] = result.get(tuple(row), 0) + 1
+        for i in range(len(grid[0])):
+            col = []
+            for j in range(len(grid)):
+                col.append(grid[j][i])
+            count += result.get(tuple(col), 0)
+
+        return count
 
 
 def main() -> None:
-    arr = [1, 2]
+    grid = [[3, 2, 1], [1, 7, 6], [2, 7, 7]]
     solution = Solution()
-    result = solution.uniqueOccurrences(arr)
+    result = solution.equalPairs(grid)
     print(result)
 
 
