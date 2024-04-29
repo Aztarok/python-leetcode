@@ -22,7 +22,7 @@ class Solution:
 
 
 def main() -> None:
-    asteroids = [8, -8]
+    asteroids = [-4, 6, -16, -15, 5, -7, 3, 4, -18]
     solution = Solution()
     result = solution.asteroidCollision(asteroids)
     print(result)
