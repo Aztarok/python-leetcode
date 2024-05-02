@@ -1,4 +1,6 @@
 class Solution:
+
+    # Did this without AI LOL
     def predictPartyVictory(self, senate: str) -> str:
         radiant = []
         dire = []
