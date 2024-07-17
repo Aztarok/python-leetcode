@@ -20,6 +20,7 @@ class Solution:
             slow.next = prev
             prev = slow
             slow = tmp
+            print(fast, tmp.val, slow.val, prev.val)
         res = 0
         while slow:
             res = max(res, slow.val + prev.val)
