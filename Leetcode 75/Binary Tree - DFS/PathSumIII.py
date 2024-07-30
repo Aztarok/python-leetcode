@@ -82,7 +82,7 @@ class Solution:
         self.dfs(node.left, current_sum, targetSum)
         self.dfs(node.right, current_sum, targetSum)
 
-        self.prefix_sum_count[current_sum] -= 1  # Backtrack
+        self.prefix_sum_count[current_sum] -= 1
 
 
 def main() -> None:
