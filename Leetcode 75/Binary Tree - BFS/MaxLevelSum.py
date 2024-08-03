@@ -1,4 +1,5 @@
-from typing import Optional
+from collections import deque
+from typing import List, Optional
 
 
 class TreeNode:
@@ -7,53 +8,53 @@ class TreeNode:
         self.left = left
         self.right = right
 
-    def PrintTree(self):
-        print(self.val)
+
+def list_to_tree(nums):
+    if not nums:
+        return None
+    nodes = [TreeNode(val) if val is not None else None for val in nums]
+    kids = nodes[::-1]
+    root = kids.pop()
+    for node in nodes:
+        if node:
+            if kids:
+                node.left = kids.pop()
+            if kids:
+                node.right = kids.pop()
+    return root
 
 
 class Solution:
-    def __init__(self):
-        self.store1 = []
-        self.store2 = []
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        queue = deque([root])
+        maxSum = float("-inf")
+        maxLevel = 1
+        currentLevel = 1
 
-    def collectLeaves(self, node: Optional[TreeNode], store: list):
-        if node is None:
-            return
-        if node.left is None and node.right is None:
-            store.append(node.val)
-        else:
-            self.collectLeaves(node.left, store)
-            self.collectLeaves(node.right, store)
-
-    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        self.collectLeaves(root1, self.store1)
-        self.collectLeaves(root2, self.store2)
-        return self.store1 == self.store2
+        while queue:
+            sumOfLevel = 0
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                sumOfLevel += node.val
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            if sumOfLevel > maxSum:
+                maxSum = sumOfLevel
+                maxLevel = currentLevel
+            currentLevel += 1
+        return maxLevel
 
 
 def main() -> None:
-    root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.left.left = TreeNode(3)
-    root.left.right = TreeNode(2)
-    root.left.right.left = TreeNode(7)
-    root.left.right.right = TreeNode(4)
-    root.right = TreeNode(1)
-    root.right.left = TreeNode(9)
-    root.right.right = TreeNode(8)
-
-    root2 = TreeNode(1)
-    root2.left = TreeNode(3)
-    root2.left.left = TreeNode(2)
-    root2.left.right = TreeNode(2)
-    root2.left.right.left = TreeNode(7)
-    root2.left.right.right = TreeNode(4)
-    root2.right = TreeNode(1)
-    root2.right.left = TreeNode(9)
-    root2.right.right = TreeNode(8)
+    root_list = [-100, -200, -300, -20, -5, -10, None]
+    root = list_to_tree(root_list)
 
     solution = Solution()
-    result = solution.leafSimilar(root1=root, root2=root2)
+    result = solution.maxLevelSum(root)
     print(result)
 
 
