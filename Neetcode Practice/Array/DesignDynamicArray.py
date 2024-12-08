@@ -10,7 +10,6 @@ class DynamicArray:
 
     def set(self, i: int, n: int) -> None:
         self.arr[i] = n
-        self.size += 1
 
     def pushback(self, n: int) -> None:
         if self.size == self.capacity:
@@ -19,7 +18,11 @@ class DynamicArray:
         self.size += 1
 
     def popback(self) -> int:
-        return self.arr[self.size - 1]
+        if self.size == 0:
+            raise IndexError("Array is Empty")
+        value = self.arr[self.size - 1]
+        self.size -= 1
+        return value
 
     def resize(self) -> None:
         self.arr = self.arr + [0] * self.capacity
