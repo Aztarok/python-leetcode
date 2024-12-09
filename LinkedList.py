@@ -2,9 +2,9 @@ from typing import Optional
 
 
 class node:
-    def __init__(self, data=None):
+    def __init__(self, data=None, next = None):
         self.data = data
-        self.next = None
+        self.next = next
 
 
 class linked_list:
@@ -13,6 +13,9 @@ class linked_list:
 
     def append(self, data):
         new_node = node(data)
+        if self.head is None:
+            self.head = new_node
+            return
         cur = self.head
         while cur.next != None:
             cur = cur.next
@@ -41,6 +44,9 @@ class linked_list:
         cur_idx = 0
         cur_node = self.head
         while True:
+            if cur_node.next == None:
+                print("ERROR: 'Erase' index out of range!")
+                return
             cur_node = cur_node.next
             if cur_idx == index:
                 return cur_node.data
@@ -54,6 +60,9 @@ class linked_list:
         cur_node = self.head
         while True:
             last_node = cur_node
+            if cur_node.next == None:
+                print("ERROR: 'Erase' index out of range!")
+                return
             cur_node = cur_node.next
             if cur_idx == index:
                 last_node.next = cur_node.next
