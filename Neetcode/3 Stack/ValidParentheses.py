@@ -2,21 +2,20 @@ from typing import List
 class Solution:
     def isValid(self, s: str) -> bool:
         result = []
+        mapping = {')': '(', ']': '[', '}': '{'}
+
         for c in s:
             if c in "({[":
                 result.append(c)
-            elif c == ")" and len(result) > 0 and result[-1] == "(":
+            elif c in ")}]":
+                if not result or result[-1] != mapping[c]:
+                    return False
                 result.pop()
-            elif c == "]" and len(result) > 0 and result[-1] == "[":
-                result.pop()
-            elif c == "}" and len(result) > 0 and result[-1] == "{":
-                result.pop()
-            else:
-                return False
         return len(result) == 0
+
         
 def main() -> None:
-    s = "[[]"
+    s = "{([])}"
     solution = Solution().isValid(s)
     print(solution)
 
